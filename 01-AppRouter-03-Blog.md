@@ -12,7 +12,7 @@ cd my-blog
 npm install lucide-react axios
 ```
 
-Instale o Shadcn/UI que é uma library para instalação progressiva de components visuais:
+Instale o Shadcn/UI que é uma library para instalação progressiva de componentes visuais (https://ui.shadcn.com/docs):
 
 ```bash
 npx shadcn@latest init
