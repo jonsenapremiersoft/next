@@ -84,26 +84,26 @@ export default function Error({
 
 ### 4. Page (app/dashboard/page.tsx)
 ```tsx
-'use client'
-import { useState, useEffect } from 'react'
+"use client"
+import { useState, useEffect } from "react"
 
 // Função de fetch simulando API real
 async function getData() {
   // Simula delay e erro aleatório
-  await new Promise(resolve => setTimeout(resolve, 2000))
+  await new Promise((resolve) => setTimeout(resolve, 2000))
   if (Math.random() > 0.5) {
-    throw new Error('Falha ao carregar dados')
+    throw new Error("Falha ao carregar dados")
   }
-  return { message: 'Dados carregados com sucesso!' }
+  return { message: "Dados carregados com sucesso!" }
 }
 
 export default function DashboardPage() {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<{ message?: string } | null>(null)
 
   useEffect(() => {
     getData()
       .then(setData)
-      .catch(error => {
+      .catch((error) => {
         throw error // Propaga para Error.tsx
       })
   }, [])
@@ -112,7 +112,7 @@ export default function DashboardPage() {
     <div className="flex items-center justify-center min-h-screen">
       <div className="p-6 bg-green-100 rounded-lg">
         <h1 className="text-2xl font-bold text-green-800">
-          {data?.message || 'Carregando...'}
+          {data?.message || "Carregando..."}
         </h1>
       </div>
     </div>
