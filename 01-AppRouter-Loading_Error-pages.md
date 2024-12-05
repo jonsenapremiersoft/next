@@ -132,7 +132,9 @@ export default function DashboardPage() {
 1. Crie os arquivos na estrutura mostrada
 2. Instale dependências:
 ```bash
-npm install lucide-react @/components/ui/alert
+npm install lucide-react
+npx shadcn@latest init
+npx shadcn@latest add alert
 ```
 3. Acesse `/dashboard` e atualize várias vezes para ver:
    - Loading (2s)
