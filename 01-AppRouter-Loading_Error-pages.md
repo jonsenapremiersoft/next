@@ -46,12 +46,14 @@ export default function Loading() {
 
 ### 3. Error (app/dashboard/error.tsx)
 ```tsx
-'use client'
-import { AlertCircle } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+"use client"
+import { AlertCircle } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export default function Error({
   error,
+  reset,
+}: {
   error: Error & { digest?: string }
   reset: () => void
 }) {
@@ -62,7 +64,7 @@ export default function Error({
         <AlertTitle>Erro</AlertTitle>
         <AlertDescription>
           {error.message}
-          <button 
+          <button
             onClick={reset}
             className="mt-2 w-full bg-red-500 text-white p-2 rounded hover:bg-red-600"
           >
@@ -99,14 +101,21 @@ async function getData() {
 
 export default function DashboardPage() {
   const [data, setData] = useState<{ message?: string } | null>(null)
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    getData()
-      .then(setData)
-      .catch((error) => {
-        throw error // Propaga para Error.tsx
-      })
+    const fetchData = async () => {
+      try {
+        const result = await getData()
+        setData(result)
+      } catch (err) {
+        setError(err as Error)
+      }
+    }
+    fetchData()
   }, [])
+
+  if (error) throw error // Isso ativará o error.tsx
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -118,6 +127,7 @@ export default function DashboardPage() {
     </div>
   )
 }
+
 ```
 **Explicação**:
 - Página principal do dashboard
